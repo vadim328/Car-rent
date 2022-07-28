@@ -1,0 +1,6 @@
+Audi A3 Red H654BG977, rental time for 1 hour: 350 c.u.
+Citroen C4 X White T432YU977, rental time for 1 hour: 200 c.u.
+Ford Mondeo Grey R546FR977, rental time for 1 hour: 200 c.u.
+Kia Cerato Red J075KL977, rental time for 1 hour: 250 c.u.
+Totota Camry Black K454FD977, rental time for 1 hour: 500 c.u.
+Volkswagen Passat B8 Blue O843NT977, rental time for 1 hour: 400 c.u.

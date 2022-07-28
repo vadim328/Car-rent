@@ -1,0 +1,4 @@
+Sedan
+Hatchback
+Minivan
+SUV
