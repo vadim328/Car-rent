@@ -2,7 +2,7 @@
 
 ofstream acc;
 
-// Чтение данных из файла
+// Г—ГІГҐГ­ГЁГҐ Г¤Г Г­Г­Г»Гµ ГЁГ§ ГґГ Г©Г«Г 
 map<string, string> accounts() {
 	map <string, string> accounts;
 	string key, value;
@@ -17,7 +17,7 @@ map<string, string> accounts() {
 	return accounts;
 }
 
-// Проверка корректности введенного логина
+// ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®Г°Г°ГҐГЄГІГ­Г®Г±ГІГЁ ГўГўГҐГ¤ГҐГ­Г­Г®ГЈГ® Г«Г®ГЈГЁГ­Г 
 bool correct_login(string& log) {
 	regex rg1("([+]7|8)\\d{10}");
 	regex rg2("\\w+@[a-z]+[.][a-z]{2,3}");
@@ -36,7 +36,7 @@ bool correct_login(string& log) {
 	}
 	return false;
 }
-// Авторизация в системе
+// ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГї Гў Г±ГЁГ±ГІГҐГ¬ГҐ
 void authorization() {
 	cout << "Enter login and password to log in" << endl;
 	string log, pass;
@@ -46,7 +46,9 @@ void authorization() {
 	cin >> pass;
 	if (correct_login(log)) {
 		map <string, string> account = accounts();
-		if (pass == account[log]) {
+		map <string, string> ::iterator it;
+		it = account.find(log);
+		if (it != account.end() && it->second == pass) {
 			welcome();
 		}
 		else {
@@ -59,8 +61,7 @@ void authorization() {
 		authorization();
 	}
 }
-
-// Проверка корректности введенного пароля при создании аккаунта
+// ГЏГ°Г®ГўГҐГ°ГЄГ  ГЄГ®Г°Г°ГҐГЄГІГ­Г®Г±ГІГЁ ГўГўГҐГ¤ГҐГ­Г­Г®ГЈГ® ГЇГ Г°Г®Г«Гї ГЇГ°ГЁ Г±Г®Г§Г¤Г Г­ГЁГЁ Г ГЄГЄГ ГіГ­ГІГ 
 bool password_check(const string& pass1, const string& pass2) {
 	if (pass1 != pass2) {
 		return false;
@@ -68,7 +69,7 @@ bool password_check(const string& pass1, const string& pass2) {
 	return true;
 }
 
-// Проверка уникальности логина
+// ГЏГ°Г®ГўГҐГ°ГЄГ  ГіГ­ГЁГЄГ Г«ГјГ­Г®Г±ГІГЁ Г«Г®ГЈГЁГ­Г 
 bool unique_login(const string& log) {
 	map <string, string> account = accounts();
 	if (account.count(log) == 0) {
@@ -77,9 +78,9 @@ bool unique_login(const string& log) {
 	return false;
 }
 
-// Создание аккаунта
+// Г‘Г®Г§Г¤Г Г­ГЁГҐ Г ГЄГЄГ ГіГ­ГІГ 
 bool create_account() {
-	string log = "", pass1 = "", pass2 = ""; // Логин, пароль, повтор пароля
+	string log = "", pass1 = "", pass2 = ""; // Г‹Г®ГЈГЁГ­, ГЇГ Г°Г®Г«Гј, ГЇГ®ГўГІГ®Г° ГЇГ Г°Г®Г«Гї
 	cout << "Enter your email or phone number" << endl;
 	cout << "Login: ";
 	cin >> log;
@@ -91,7 +92,7 @@ bool create_account() {
 				cout << "Enter the password again: ";
 				cin >> pass2;
 				if (password_check(pass1, pass2)) {
-					acc.open("Accounts.txt", ios::app); // Текстовый файл с аккаунтами в режиме добавления в конец строки
+					acc.open("Accounts.txt", ios::app); // Г’ГҐГЄГ±ГІГ®ГўГ»Г© ГґГ Г©Г« Г± Г ГЄГЄГ ГіГ­ГІГ Г¬ГЁ Гў Г°ГҐГ¦ГЁГ¬ГҐ Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї Гў ГЄГ®Г­ГҐГ¶ Г±ГІГ°Г®ГЄГЁ
 					if (!acc.is_open()) {
 						cout << "Unexpected error, try again later" << endl;
 						exit(0);
