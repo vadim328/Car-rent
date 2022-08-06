@@ -2,8 +2,8 @@
 
 ofstream acc;
 
-// ×òåíèå äàííûõ èç ôàéëà
-map<string, string> accounts() {
+
+map<string, string> accounts() { // Reading data from a file
 	map <string, string> accounts;
 	string key, value;
 	ifstream acc2("Accounts.txt");
@@ -17,8 +17,7 @@ map<string, string> accounts() {
 	return accounts;
 }
 
-// Ïðîâåðêà êîððåêòíîñòè ââåäåííîãî ëîãèíà
-bool correct_login(string& log) {
+bool correct_login(string& log) { // Checking the correctness of the entered login
 	regex rg1("([+]7|8)\\d{10}");
 	regex rg2("\\w+@[a-z]+[.][a-z]{2,3}");
 	if (regex_match(log, rg1)) {
@@ -36,8 +35,8 @@ bool correct_login(string& log) {
 	}
 	return false;
 }
-// Àâòîðèçàöèÿ â ñèñòåìå
-void authorization() {
+
+void authorization() { // Authorization in the system
 	cout << "Enter login and password to log in" << endl;
 	string log, pass;
 	cout << "Login: ";
@@ -61,16 +60,15 @@ void authorization() {
 		authorization();
 	}
 }
-// Ïðîâåðêà êîððåêòíîñòè ââåäåííîãî ïàðîëÿ ïðè ñîçäàíèè àêêàóíòà
-bool password_check(const string& pass1, const string& pass2) {
+
+bool password_check(const string& pass1, const string& pass2) { // Checking the correctness of the entered password when creating an account
 	if (pass1 != pass2) {
 		return false;
 	}
 	return true;
 }
 
-// Ïðîâåðêà óíèêàëüíîñòè ëîãèíà
-bool unique_login(const string& log) {
+bool unique_login(const string& log) { // Checking the uniqueness of the login
 	map <string, string> account = accounts();
 	if (account.count(log) == 0) {
 		return true;
@@ -78,9 +76,8 @@ bool unique_login(const string& log) {
 	return false;
 }
 
-// Ñîçäàíèå àêêàóíòà
-bool create_account() {
-	string log = "", pass1 = "", pass2 = ""; // Ëîãèí, ïàðîëü, ïîâòîð ïàðîëÿ
+bool create_account() { // Creating an account
+	string log = "", pass1 = "", pass2 = ""; 
 	cout << "Enter your email or phone number" << endl;
 	cout << "Login: ";
 	cin >> log;
@@ -92,7 +89,7 @@ bool create_account() {
 				cout << "Enter the password again: ";
 				cin >> pass2;
 				if (password_check(pass1, pass2)) {
-					acc.open("Accounts.txt", ios::app); // Òåêñòîâûé ôàéë ñ àêêàóíòàìè â ðåæèìå äîáàâëåíèÿ â êîíåö ñòðîêè
+					acc.open("Accounts.txt", ios::app); 
 					if (!acc.is_open()) {
 						cout << "Unexpected error, try again later" << endl;
 						exit(0);
