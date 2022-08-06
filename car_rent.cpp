@@ -1,31 +1,31 @@
 #include "car_rent.h"
 
-ifstream cars_read; // Чтение из файла
-ofstream cars_write; // Запись в файл
+ifstream cars_read; 
+ofstream cars_write; 
 
-int leap_year(int& year) { // Проверка на високосный год
+int leap_year(int& year) { 
 	if (year % 4 == 0) {
 		return 29;
 	}
 	return 28;
 }
 
-string rental_end_time(Time t) { // Вычисление даты и времени окончания аренды
+string rental_end_time(Time t) { // Checking for a leap year
 	SYSTEMTIME st;
 	GetLocalTime(&st);
-	t.hour += st.wHour; // время окончания
-	t.day += st.wDay; // день окончания
+	t.hour += st.wHour; // end time
+	t.day += st.wDay; // end day
 	int boundary_time = t.hour / 24;
-	if (boundary_time >= 1) { // Если часы равны или больше 24
+	if (boundary_time >= 1) { // If the hours are equal to or greater than 24
 		t.hour -= boundary_time * 24;
 		t.day += boundary_time;
 	}
 	t.year = st.wYear;
-	t.month[1] = leap_year(t.year); // Если год високосный
-	int m = st.wMonth; // Текущий месяц в массиве
+	t.month[1] = leap_year(t.year); // If the year is a leap year
+	int m = st.wMonth; // Current month
 	while (t.day > t.month[m - 1]) {
 		t.day -= t.month[m - 1];
-		if (m == 12) { // Переход на следующий год
+		if (m == 12) { // Transition to the next year
 			t.year++;
 			t.month[1] = leap_year(t.year);
 			m = 0;
@@ -34,13 +34,13 @@ string rental_end_time(Time t) { // Вычисление даты и времени окончания аренды
 	}
 	stringstream ss;
 	ss << " Start of lease: " << st.wDay << "." << st.wMonth << "." << st.wYear << " " << st.wHour << " ocloc'l " << st.wMinute << " minutes, "
-		<< "еnd of lease: " << t.day << "." << m << "." << t.year << " " << t.hour << " ocloc'l " << st.wMinute << " minutes";
+		<< "ГҐnd of lease: " << t.day << "." << m << "." << t.year << " " << t.hour << " ocloc'l " << st.wMinute << " minutes";
 	string s;
 	getline(ss, s);
 	return s;
 }
 
-void rented(const string car) { // Аренда автомобиля
+void rented(const string car) { // Car rental
 	cout << "How long will the car be rented for?" << endl
 		<< "Enter the time in the format: X day(s) X hour(s)" << endl;
 	Time t;
@@ -60,11 +60,11 @@ void rented(const string car) { // Аренда автомобиля
 	getline(ss, price);
 	regex rg(R"(: ([0-9]+))");
 	smatch m;
-	regex_search(price, m, rg); // Извлекаем часовую стоимость авто из файла
+	regex_search(price, m, rg); // Extracting the hourly cost of a car from a file
 	cout << "The amount of the rent will be: " << stoi(m[1]) * (t.day * 24 + t.hour) << " c.u., thanks for renting a car.";
 }
 
-void overwriting(set <string> c, const int& number, const string& type) { // Удаляем арендованный автомобиль и перезаписываем остальные авто в файл
+void overwriting(set <string> c, const int& number, const string& type) { // Delete the rented car and overwrite the rest of the cars in the file
 	set <string> ::iterator it = c.begin();
 	advance(it, number - 1);
 	c.erase(it);
@@ -80,7 +80,7 @@ void overwriting(set <string> c, const int& number, const string& type) { // Уда
 		cars_write.close();
 }
 
-set <string> ::iterator car_choise(const set <string>& c, const string& type) { // Выбор авто
+set <string> ::iterator car_choise(const set <string>& c, const string& type) { // Choosing a car
 	cout << "Choose a car:" << endl;
 	set <string> ::iterator it = c.begin();
 	for (int i = 1; it != c.end(); i++, it++) {
@@ -95,7 +95,7 @@ set <string> ::iterator car_choise(const set <string>& c, const string& type) { 
 	return it;
 }
 
-set <string> reading(const string& type) { // Записываем содержимое файла в set
+set <string> reading(const string& type) { // Writing the contents of the file
 	set <string> c;
 	string s;
 	cars_read.open(type);
