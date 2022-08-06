@@ -18,16 +18,16 @@ struct Time {
 	int hour;
 };
 
-int leap_year(int& year); // Проверка на високосный год
+int leap_year(int& year); // Checking for a leap year
 
-string rental_end_time(Time t); // Вычисление даты и времени окончания аренды
+string rental_end_time(Time t); // Calculation of the date and time of the end of the lease
 	
-void rented(const string car); // Аренда автомобиля
+void rented(const string car); // Car rental
 	
-void overwriting(set <string> c, const int& number, const string& type); // Удаляем арендованный автомобиль и перезаписываем остальные авто в файл
+void overwriting(set <string> c, const int& number, const string& type); // Delete the rented car and overwrite the rest of the cars in the file
 
-set <string> ::iterator car_choise(const set <string>& c, const string& type); // Выбор авто
+set <string> ::iterator car_choise(const set <string>& c, const string& type); // Choosing a car
 
-set <string> reading(const string& type); // Записываем содержимое файла в set
+set <string> reading(const string& type); // Recording the contents of the file
 
-void welcome(); // Вводная функция, выбор типа автомобиля
+void welcome(); // Choosing the type of car
